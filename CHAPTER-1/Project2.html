@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ToDo List</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">ToDo App</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Container -->
+    <div class="container my-5">
+
+        <h2 class="text-center mb-4">ToDo List</h2>
+
+        <!-- Form -->
+
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" class="form-control" id="title"
+                placeholder="Enter Title">
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <textarea class="form-control" id="description"
+                rows="3"
+                placeholder="Enter Description"></textarea>
+        </div>
+
+        <button class="btn btn-primary" id="add">Add To List</button>
+        <button class="btn btn-danger ml-2" id="clear">Clear List</button>
+
+        <!-- Table -->
+
+        <div class="my-5">
+
+            <h3>Your Items</h3>
+
+            <table class="table table-bordered table-hover">
+
+                <thead class="thead-dark">
+                    <tr>
+                        <th>S.No</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tableBody">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        // Display Items
+
+        function update() {
+
+            let items = [];
+
+            if (localStorage.getItem("itemsJson") == null) {
+                localStorage.setItem("itemsJson", JSON.stringify(items));
+            }
+            else {
+                items = JSON.parse(localStorage.getItem("itemsJson"));
+            }
+
+            let tableBody = document.getElementById("tableBody");
+            let str = "";
+
+            items.forEach((element, index) => {
+
+                str += `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${element[0]}</td>
+                    <td>${element[1]}</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm"
+                        onclick="deleted(${index})">
+                        Delete
+                        </button>
+                    </td>
+                </tr>
+                `;
+
+            });
+
+            tableBody.innerHTML = str;
+        }
+
+        update();
+
+        // Add Item
+
+        document.getElementById("add").addEventListener("click", function () {
+
+            let title = document.getElementById("title").value.trim();
+            let description = document.getElementById("description").value.trim();
+
+            if (title == "" || description == "") {
+                alert("Please enter both Title and Description.");
+                return;
+            }
+
+            let items = [];
+
+            if (localStorage.getItem("itemsJson") == null) {
+                items = [];
+            }
+            else {
+                items = JSON.parse(localStorage.getItem("itemsJson"));
+            }
+
+            items.push([title, description]);
+
+            localStorage.setItem("itemsJson", JSON.stringify(items));
+
+            document.getElementById("title").value = "";
+            document.getElementById("description").value = "";
+
+            update();
+
+        });
+
+        // Delete Item
+
+        function deleted(index) {
+
+            let items = JSON.parse(localStorage.getItem("itemsJson"));
+
+            items.splice(index, 1);
+
+            localStorage.setItem("itemsJson", JSON.stringify(items));
+
+            update();
+
+        }
+
+        // Clear All
+
+        document.getElementById("clear").addEventListener("click", function () {
+
+            if (confirm("Do you really want to clear the entire list?")) {
+
+                localStorage.removeItem("itemsJson");
+
+                update();
+
+            }
+
+        });
+
+    </script>
+
+    <!-- Bootstrap JS -->
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

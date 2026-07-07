@@ -5,12 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JavaScript tutorial</title>
   </head>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    .container{
+      border: 2px solid red;
+      margin: 3px 0;
+      background-color: aqua; 
+      padding: 9px;
+    }
+  </style>
   <body>
     <h1>Welcome to my javascript tutorial</h1>
     <div id="firstcontainer" class="container">
-      <button id="click">click me</button>
+      <button id="click" onclick="clicked()" >click me</button>
     </div>
-
     <script src="index.js"></script>
   </body>
 </html>

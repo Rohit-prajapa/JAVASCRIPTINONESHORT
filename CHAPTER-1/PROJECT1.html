@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>World Clock</title>
+
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <a class="navbar-brand" href="#">Navbar</a>
+
+        <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse"
+            id="navbarSupportedContent">
+
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+
+                <li class="nav-item dropdown">
+
+                    <a class="nav-link dropdown-toggle"
+                        href="#"
+                        id="navbarDropdown"
+                        role="button"
+                        data-toggle="dropdown">
+
+                        Dropdown
+
+                    </a>
+
+                    <div class="dropdown-menu">
+
+                        <a class="dropdown-item" href="#">Action</a>
+
+                        <a class="dropdown-item" href="#">Another Action</a>
+
+                        <div class="dropdown-divider"></div>
+
+                        <a class="dropdown-item" href="#">Something Else</a>
+
+                    </div>
+
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+
+            </ul>
+
+            <form class="form-inline">
+
+                <input class="form-control mr-sm-2"
+                    type="search"
+                    placeholder="Search">
+
+                <button class="btn btn-outline-success">
+                    Search
+                </button>
+
+            </form>
+
+        </div>
+
+    </nav>
+
+    <!-- Jumbotron -->
+
+    <div class="container mt-5">
+
+        <div class="jumbotron">
+
+            <h1 class="display-4">
+
+                Current Time Is :
+
+                <span id="time"></span>
+
+            </h1>
+
+            <p class="lead">
+
+                We have got you covered. This is a simple hero unit,
+                a simple jumbotron-style component.
+
+            </p>
+
+            <hr class="my-4">
+
+            <p>
+
+                We are here to show you the time for different countries.
+
+            </p>
+
+            <button class="btn btn-primary btn-lg"
+                data-toggle="modal"
+                data-target="#timeModal">
+
+                Browse Times
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Modal -->
+
+    <div class="modal fade"
+        id="timeModal">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title">
+
+                        🌍 World Clock
+
+                    </h5>
+
+                    <button class="close"
+                        data-dismiss="modal">
+
+                        &times;
+
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <h5>🇮🇳 India :
+                        <span id="india"></span>
+                    </h5>
+
+                    <hr>
+
+                    <h5>🇺🇸 USA :
+                        <span id="usa"></span>
+                    </h5>
+
+                    <hr>
+
+                    <h5>🇬🇧 United Kingdom :
+                        <span id="uk"></span>
+                    </h5>
+
+                    <hr>
+
+                    <h5>🇯🇵 Japan :
+                        <span id="japan"></span>
+                    </h5>
+
+                    <hr>
+
+                    <h5>🇦🇺 Australia :
+                        <span id="australia"></span>
+                    </h5>
+
+                    <hr>
+
+                    <h5>🇨🇦 Canada :
+                        <span id="canada"></span>
+                    </h5>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- jQuery -->
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <!-- Popper -->
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+
+    <!-- Bootstrap JS -->
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <!-- JavaScript -->
+
+    <script>
+
+        // Main Clock
+
+        function updateTime() {
+
+            let now = new Date();
+
+            let time = now.toLocaleTimeString();
+
+            let date = now.toLocaleDateString();
+
+            document.getElementById("time").innerHTML =
+                `${time} on ${date}`;
+
+        }
+
+        // World Clock
+
+        function updateWorldTime() {
+
+            document.getElementById("india").innerHTML =
+                new Date().toLocaleTimeString("en-IN", {
+                    timeZone: "Asia/Kolkata"
+                });
+
+            document.getElementById("usa").innerHTML =
+                new Date().toLocaleTimeString("en-US", {
+                    timeZone: "America/New_York"
+                });
+
+            document.getElementById("uk").innerHTML =
+                new Date().toLocaleTimeString("en-GB", {
+                    timeZone: "Europe/London"
+                });
+
+            document.getElementById("japan").innerHTML =
+                new Date().toLocaleTimeString("ja-JP", {
+                    timeZone: "Asia/Tokyo"
+                });
+
+            document.getElementById("australia").innerHTML =
+                new Date().toLocaleTimeString("en-AU", {
+                    timeZone: "Australia/Sydney"
+                });
+
+            document.getElementById("canada").innerHTML =
+                new Date().toLocaleTimeString("en-CA", {
+                    timeZone: "America/Toronto"
+                });
+
+        }
+
+        updateTime();
+        updateWorldTime();
+
+        setInterval(updateTime, 1000);
+        setInterval(updateWorldTime, 1000);
+
+    </script>
+
+</body>
+
+</html>
